@@ -1,0 +1,7148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>QUIZORA — Smart Assessment Platform</title>
+
+    <meta
+        name="description"
+        content="QUIZORA is a modern interactive online quiz and assessment platform."
+    >
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+         /* =========================================================
+   QUIZORA
+   Premium Assessment UI
+========================================================= */
+
+:root {
+
+    --primary: #7c5cff;
+    --primary-light: #9b82ff;
+    --secondary: #00d4ff;
+
+    --bg: #070914;
+    --bg-soft: #0c1020;
+
+    --card: rgba(17, 22, 42, 0.72);
+    --card-solid: #11162a;
+
+    --border: rgba(255, 255, 255, 0.09);
+    --border-hover: rgba(124, 92, 255, 0.55);
+
+    --text: #f7f8ff;
+    --text-soft: #a6abc1;
+    --text-muted: #6e748c;
+
+    --success: #31e69a;
+    --danger: #ff5c7a;
+    --warning: #ffc857;
+
+    --shadow:
+        0 30px 80px rgba(0, 0, 0, 0.35);
+
+    --radius: 22px;
+
+    --transition:
+        0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* =========================================================
+   LIGHT THEME
+========================================================= */
+
+body.light {
+
+    --bg: #f4f6fc;
+    --bg-soft: #ffffff;
+
+    --card: rgba(255, 255, 255, 0.8);
+    --card-solid: #ffffff;
+
+    --border: rgba(20, 25, 50, 0.09);
+
+    --text: #111426;
+    --text-soft: #5d6478;
+    --text-muted: #8b91a4;
+
+    --shadow:
+        0 25px 70px rgba(25, 35, 70, 0.1);
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+        "Inter",
+        sans-serif;
+
+    background: var(--bg);
+
+    color: var(--text);
+
+    overflow-x: hidden;
+
+    transition:
+        background 0.35s ease,
+        color 0.35s ease;
+}
+
+
+button,
+input {
+    font-family: inherit;
+}
+
+
+button {
+    border: none;
+    cursor: pointer;
+}
+
+
+button:focus-visible,
+input:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.background {
+    position: fixed;
+    inset: 0;
+    z-index: -5;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+
+.glow {
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    filter: blur(120px);
+
+    opacity: 0.17;
+
+    animation:
+        floatGlow 12s ease-in-out infinite alternate;
+}
+
+
+.glow-one {
+
+    background: var(--primary);
+
+    top: -180px;
+    left: -150px;
+}
+
+
+.glow-two {
+
+    background: var(--secondary);
+
+    right: -180px;
+    bottom: -200px;
+
+    animation-delay: -5s;
+}
+
+
+.grid-background {
+
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent 80%
+        );
+}
+
+
+@keyframes floatGlow {
+
+    from {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    to {
+        transform: translate3d(60px, 40px, 0) scale(1.15);
+    }
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.top-header {
+
+    width: min(1400px, calc(100% - 48px));
+
+    margin: 0 auto;
+
+    padding: 28px 0;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.brand-mark {
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 13px;
+
+    display: grid;
+    place-items: center;
+
+    font-family: "Space Grotesk";
+
+    font-weight: 700;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            #5540d7
+        );
+
+    box-shadow:
+        0 10px 30px rgba(124, 92, 255, 0.3);
+}
+
+
+.brand h2 {
+
+    font-family:
+        "Space Grotesk",
+        sans-serif;
+
+    font-size: 18px;
+
+    letter-spacing: 1px;
+}
+
+
+.brand span {
+
+    display: block;
+
+    font-size: 10px;
+
+    color: var(--text-muted);
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.2px;
+
+    margin-top: 2px;
+}
+
+
+.header-actions {
+
+    display: flex;
+
+    gap: 10px;
+}
+
+
+.icon-button {
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 12px;
+
+    color: var(--text-soft);
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    backdrop-filter: blur(20px);
+
+    transition: var(--transition);
+}
+
+
+.icon-button:hover {
+
+    color: white;
+
+    border-color: var(--border-hover);
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app {
+
+    width: min(1400px, calc(100% - 48px));
+
+    margin: 0 auto 80px;
+}
+
+
+.screen {
+    display: none;
+
+    animation:
+        screenIn 0.55s ease both;
+}
+
+
+.screen.active {
+    display: block;
+}
+
+
+@keyframes screenIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.primary-button,
+.secondary-button {
+
+    min-height: 52px;
+
+    padding: 0 22px;
+
+    border-radius: 14px;
+
+    display: inline-flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 12px;
+
+    font-weight: 700;
+
+    transition: var(--transition);
+}
+
+
+.primary-button {
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            #6045e7
+        );
+
+    box-shadow:
+        0 12px 30px rgba(124, 92, 255, 0.25);
+}
+
+
+.primary-button:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 18px 40px rgba(124, 92, 255, 0.4);
+}
+
+
+.primary-button span {
+
+    font-size: 19px;
+
+    transition: transform 0.2s ease;
+}
+
+
+.primary-button:hover span {
+    transform: translateX(4px);
+}
+
+
+.secondary-button {
+
+    color: var(--text-soft);
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    backdrop-filter: blur(20px);
+}
+
+
+.secondary-button:hover {
+
+    color: var(--text);
+
+    border-color: var(--border-hover);
+
+    transform: translateY(-2px);
+}
+
+
+.text-button {
+
+    background: transparent;
+
+    color: var(--text-muted);
+
+    font-weight: 600;
+
+    padding: 10px;
+
+    transition: var(--transition);
+}
+
+
+.text-button:hover {
+    color: var(--text);
+}
+
+
+.full {
+    width: 100%;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero-layout {
+
+    min-height: 610px;
+
+    display: grid;
+
+    grid-template-columns:
+        1.05fr
+        0.95fr;
+
+    align-items: center;
+
+    gap: 80px;
+}
+
+
+.status-badge {
+
+    width: fit-content;
+
+    padding: 8px 13px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #bcb4ff;
+
+    background:
+        rgba(124, 92, 255, 0.1);
+
+    border: 1px solid
+        rgba(124, 92, 255, 0.2);
+
+    border-radius: 50px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+}
+
+
+.pulse-dot {
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--success);
+
+    box-shadow:
+        0 0 0 5px rgba(49, 230, 154, 0.08);
+}
+
+
+.hero-content h1 {
+
+    max-width: 700px;
+
+    margin-top: 25px;
+
+    font-family:
+        "Space Grotesk",
+        sans-serif;
+
+    font-size:
+        clamp(55px, 7vw, 92px);
+
+    line-height: 0.96;
+
+    letter-spacing: -4px;
+}
+
+
+.hero-content h1 span,
+.section-heading h2 span,
+.result-top h1 span {
+
+    background:
+        linear-gradient(
+            90deg,
+            #a58eff,
+            #55dfff
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
+}
+
+
+.hero-description {
+
+    max-width: 600px;
+
+    margin-top: 27px;
+
+    color: var(--text-soft);
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+
+.hero-buttons {
+
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 32px;
+}
+
+
+.hero-stats {
+
+    display: flex;
+
+    gap: 45px;
+
+    margin-top: 45px;
+}
+
+
+.hero-stat {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+.hero-stat strong {
+
+    font-family: "Space Grotesk";
+
+    font-size: 25px;
+}
+
+
+.hero-stat span {
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   HERO PREVIEW
+========================================================= */
+
+.hero-preview {
+
+    position: relative;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    min-height: 480px;
+}
+
+
+.preview-window {
+
+    width: min(440px, 100%);
+
+    padding: 2px;
+
+    border-radius: 26px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124,92,255,0.6),
+            rgba(0,212,255,0.15),
+            transparent
+        );
+
+    box-shadow:
+        0 50px 100px rgba(0,0,0,0.35);
+}
+
+
+.preview-window::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 70px 30px 50px;
+
+    background: var(--primary);
+
+    filter: blur(90px);
+
+    opacity: 0.12;
+
+    z-index: -1;
+}
+
+
+.preview-window > * {
+    position: relative;
+}
+
+
+.preview-top {
+
+    height: 55px;
+
+    padding: 0 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    background:
+        rgba(16,20,38,0.98);
+
+    border-radius:
+        24px 24px 0 0;
+}
+
+
+.window-dots {
+
+    display: flex;
+
+    gap: 6px;
+}
+
+
+.window-dots span {
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #555c75;
+}
+
+
+.preview-top small {
+
+    color: #646b83;
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+}
+
+
+.preview-body {
+
+    min-height: 380px;
+
+    padding: 45px 38px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20,25,47,0.98),
+            rgba(10,14,28,0.98)
+        );
+
+    border-radius:
+        0 0 24px 24px;
+}
+
+
+.preview-label {
+
+    color: #70768e;
+
+    font-size: 10px;
+
+    letter-spacing: 1.5px;
+}
+
+
+.preview-score {
+
+    margin-top: 15px;
+
+    font-family: "Space Grotesk";
+
+    font-size: 86px;
+
+    line-height: 1;
+
+    font-weight: 700;
+}
+
+
+.preview-score span {
+    font-size: 35px;
+    color: var(--primary-light);
+}
+
+
+.preview-progress {
+
+    height: 7px;
+
+    margin-top: 25px;
+
+    border-radius: 20px;
+
+    background: #222840;
+
+    overflow: hidden;
+}
+
+
+.preview-progress div {
+
+    width: 87%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    border-radius: inherit;
+}
+
+
+.preview-row {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 10px;
+
+    margin-top: 50px;
+}
+
+
+.preview-row div {
+
+    padding: 15px;
+
+    background:
+        rgba(255,255,255,0.03);
+
+    border: 1px solid var(--border);
+
+    border-radius: 13px;
+}
+
+
+.preview-row small {
+
+    display: block;
+
+    color: #666d85;
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+}
+
+
+.preview-row strong {
+
+    display: block;
+
+    margin-top: 7px;
+
+    font-size: 16px;
+}
+
+
+.floating-card {
+
+    position: absolute;
+
+    padding: 13px 17px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    border-radius: 14px;
+
+    background:
+        rgba(20,25,45,0.88);
+
+    border: 1px solid var(--border);
+
+    backdrop-filter: blur(20px);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.25);
+
+    animation:
+        floatingCard 4s ease-in-out infinite;
+}
+
+
+.floating-card > span {
+
+    width: 34px;
+    height: 34px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 10px;
+
+    background:
+        rgba(124,92,255,0.15);
+
+    color: var(--primary-light);
+}
+
+
+.floating-card strong {
+
+    display: block;
+
+    font-size: 13px;
+}
+
+
+.floating-card small {
+
+    display: block;
+
+    color: var(--text-muted);
+
+    font-size: 9px;
+
+    margin-top: 2px;
+}
+
+
+.floating-one {
+
+    top: 70px;
+    right: -10px;
+}
+
+
+.floating-two {
+
+    bottom: 70px;
+    left: -15px;
+
+    animation-delay: -2s;
+}
+
+
+@keyframes floatingCard {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+
+/* =========================================================
+   FEATURE GRID
+========================================================= */
+
+.feature-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+
+.feature-card {
+
+    padding: 25px;
+
+    display: flex;
+
+    gap: 17px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    background: var(--card);
+
+    backdrop-filter: blur(25px);
+
+    transition: var(--transition);
+}
+
+
+.feature-card:hover {
+
+    transform: translateY(-5px);
+
+    border-color:
+        var(--border-hover);
+}
+
+
+.feature-icon {
+
+    width: 45px;
+    height: 45px;
+
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 13px;
+
+    color: var(--primary-light);
+
+    background:
+        rgba(124,92,255,0.1);
+
+    font-weight: 800;
+}
+
+
+.feature-card h3 {
+
+    font-size: 14px;
+
+    margin-bottom: 7px;
+}
+
+
+.feature-card p {
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   SECTION HEADING
+========================================================= */
+
+.section-heading {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: end;
+
+    padding: 70px 0 45px;
+}
+
+
+.eyebrow {
+
+    display: block;
+
+    color: var(--primary-light);
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+
+.section-heading h2 {
+
+    margin-top: 13px;
+
+    font-family: "Space Grotesk";
+
+    font-size: clamp(40px, 5vw, 65px);
+
+    letter-spacing: -2px;
+}
+
+
+.section-heading p {
+
+    margin-top: 13px;
+
+    color: var(--text-muted);
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   SETUP
+========================================================= */
+
+.setup-layout {
+
+    display: grid;
+
+    grid-template-columns:
+        1.5fr
+        0.7fr;
+
+    gap: 25px;
+}
+
+
+.setup-main,
+.setup-summary {
+
+    padding: 30px;
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    background: var(--card);
+
+    backdrop-filter: blur(25px);
+
+    box-shadow: var(--shadow);
+}
+
+
+.form-section {
+
+    margin-bottom: 35px;
+}
+
+
+.form-section > label,
+.label-row label {
+
+    display: block;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    margin-bottom: 13px;
+}
+
+
+.label-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+
+.label-row > span {
+
+    color: var(--primary-light);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.7px;
+}
+
+
+.input-wrapper {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    height: 55px;
+
+    padding: 0 17px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,0.025);
+
+    transition: var(--transition);
+}
+
+
+.input-wrapper:focus-within {
+
+    border-color: var(--primary);
+}
+
+
+.input-wrapper span {
+
+    color: var(--primary-light);
+}
+
+
+.input-wrapper input {
+
+    width: 100%;
+
+    border: none;
+
+    outline: none;
+
+    color: var(--text);
+
+    background: transparent;
+
+    font-size: 14px;
+}
+
+
+.input-wrapper input::placeholder {
+    color: var(--text-muted);
+}
+
+
+/* Category */
+
+.category-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 10px;
+}
+
+
+.category-card {
+
+    min-height: 130px;
+
+    padding: 15px;
+
+    text-align: left;
+
+    border-radius: 16px;
+
+    border: 1px solid var(--border);
+
+    background:
+        rgba(255,255,255,0.025);
+
+    color: var(--text);
+
+    transition: var(--transition);
+}
+
+
+.category-card:hover {
+
+    transform: translateY(-3px);
+
+    border-color:
+        rgba(124,92,255,0.35);
+}
+
+
+.category-card.selected {
+
+    border-color: var(--primary);
+
+    background:
+        rgba(124,92,255,0.09);
+
+    box-shadow:
+        inset 0 0 0 1px rgba(124,92,255,0.12);
+}
+
+
+.category-icon {
+
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+    place-items: center;
+
+    margin-bottom: 15px;
+
+    border-radius: 10px;
+
+    color: var(--primary-light);
+
+    background:
+        rgba(124,92,255,0.1);
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+
+.category-card strong {
+
+    display: block;
+
+    font-size: 11px;
+}
+
+
+.category-card small {
+
+    display: block;
+
+    margin-top: 5px;
+
+    color: var(--text-muted);
+
+    font-size: 8px;
+
+    line-height: 1.4;
+}
+
+
+/* Difficulty */
+
+.difficulty-selector {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 10px;
+}
+
+
+.difficulty {
+
+    height: 52px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 9px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    color: var(--text-soft);
+
+    background:
+        rgba(255,255,255,0.025);
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition: var(--transition);
+}
+
+
+.difficulty.selected {
+
+    color: var(--text);
+
+    border-color: var(--primary);
+
+    background:
+        rgba(124,92,255,0.08);
+}
+
+
+.difficulty-dot {
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+}
+
+
+.easy {
+    background: var(--success);
+}
+
+
+.medium {
+    background: var(--warning);
+}
+
+
+.hard {
+    background: var(--danger);
+}
+
+
+/* Question count */
+
+.question-count-selector {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 10px;
+}
+
+
+.count-option {
+
+    min-height: 65px;
+
+    color: var(--text);
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,0.025);
+
+    font-family: "Space Grotesk";
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    transition: var(--transition);
+}
+
+
+.count-option small {
+
+    display: block;
+
+    color: var(--text-muted);
+
+    font-family: "Inter";
+
+    font-size: 8px;
+
+    font-weight: 500;
+
+    margin-top: 4px;
+}
+
+
+.count-option.selected {
+
+    border-color: var(--primary);
+
+    background:
+        rgba(124,92,255,0.09);
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.setup-summary {
+
+    position: sticky;
+
+    top: 25px;
+
+    align-self: start;
+}
+
+
+.summary-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    color: var(--text-muted);
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.3px;
+}
+
+
+.summary-live {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    color: var(--success);
+
+    font-size: 8px;
+}
+
+
+.summary-live span {
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: var(--success);
+}
+
+
+.summary-icon {
+
+    width: 70px;
+    height: 70px;
+
+    margin-top: 50px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 20px;
+
+    font-size: 27px;
+
+    color: var(--primary-light);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124,92,255,0.15),
+            rgba(0,212,255,0.08)
+        );
+
+    border: 1px solid
+        rgba(124,92,255,0.2);
+}
+
+
+.setup-summary h3 {
+
+    margin-top: 25px;
+
+    font-family: "Space Grotesk";
+
+    font-size: 25px;
+}
+
+
+.setup-summary > p {
+
+    margin-top: 10px;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+
+.summary-details {
+
+    margin: 30px 0;
+
+    border-top: 1px solid var(--border);
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.summary-details div {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.summary-details div:last-child {
+    border: none;
+}
+
+
+.summary-details span {
+
+    color: var(--text-muted);
+
+    font-size: 10px;
+}
+
+
+.summary-details strong {
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   QUIZ HEADER
+========================================================= */
+
+.quiz-header {
+
+    min-height: 100px;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        auto
+        1fr;
+
+    align-items: center;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.quiz-brand {
+
+    font-family: "Space Grotesk";
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+
+.quiz-category {
+
+    display: block;
+
+    margin-top: 5px;
+
+    color: var(--primary-light);
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.2px;
+}
+
+
+.quiz-header-center {
+
+    text-align: center;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.quiz-header-center span {
+
+    color: var(--text-muted);
+
+    font-size: 8px;
+
+    letter-spacing: 1.5px;
+}
+
+
+.quiz-header-center strong {
+
+    font-family: "Space Grotesk";
+
+    font-size: 16px;
+}
+
+
+.timer {
+
+    position: relative;
+
+    width: 72px;
+    height: 72px;
+
+    justify-self: end;
+}
+
+
+.timer svg {
+
+    width: 100%;
+    height: 100%;
+
+    transform: rotate(-90deg);
+}
+
+
+.timer circle {
+
+    fill: none;
+
+    stroke-width: 5;
+}
+
+
+.timer-track {
+
+    stroke: rgba(255,255,255,0.07);
+}
+
+
+.timer-progress {
+
+    stroke: var(--primary);
+
+    stroke-linecap: round;
+
+    stroke-dasharray: 270;
+
+    stroke-dashoffset: 0;
+
+    transition:
+        stroke 0.3s ease,
+        stroke-dashoffset 1s linear;
+}
+
+
+.timer-content {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+
+.timer-content span {
+
+    color: var(--text-muted);
+
+    font-size: 6px;
+
+    letter-spacing: 1px;
+}
+
+
+.timer-content strong {
+
+    margin-top: 2px;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   QUIZ PROGRESS
+========================================================= */
+
+.quiz-progress {
+
+    padding: 25px 0 10px;
+}
+
+
+.progress-info {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 9px;
+
+    font-size: 9px;
+
+    color: var(--text-muted);
+}
+
+
+.progress-info strong {
+
+    color: var(--primary-light);
+
+    font-size: 10px;
+}
+
+
+.progress-track {
+
+    height: 4px;
+
+    background:
+        rgba(255,255,255,0.05);
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+
+.progress-fill {
+
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    transition:
+        width 0.4s ease;
+}
+
+
+/* =========================================================
+   QUIZ LAYOUT
+========================================================= */
+
+.quiz-layout {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        280px;
+
+    gap: 40px;
+
+    padding-top: 45px;
+}
+
+
+.question-area {
+
+    min-width: 0;
+}
+
+
+.question-meta {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    color: var(--text-muted);
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+
+.question-meta span:first-child {
+
+    color: var(--primary-light);
+}
+
+
+.question-area h1 {
+
+    max-width: 850px;
+
+    margin-top: 18px;
+
+    font-family: "Space Grotesk";
+
+    font-size:
+        clamp(30px, 4vw, 48px);
+
+    line-height: 1.15;
+
+    letter-spacing: -1.5px;
+}
+
+
+/* =========================================================
+   OPTIONS
+========================================================= */
+
+.options {
+
+    max-width: 850px;
+
+    display: grid;
+
+    gap: 12px;
+
+    margin-top: 35px;
+}
+
+
+.option {
+
+    position: relative;
+
+    min-height: 68px;
+
+    padding: 0 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    text-align: left;
+
+    color: var(--text-soft);
+
+    border: 1px solid var(--border);
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,0.025);
+
+    transition: var(--transition);
+
+    overflow: hidden;
+}
+
+
+.option::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(124,92,255,0.08),
+            transparent
+        );
+
+    opacity: 0;
+
+    transition: opacity 0.2s;
+}
+
+
+.option:hover {
+
+    transform: translateX(5px);
+
+    color: var(--text);
+
+    border-color:
+        rgba(124,92,255,0.35);
+}
+
+
+.option:hover::before {
+    opacity: 1;
+}
+
+
+.option-letter {
+
+    position: relative;
+
+    z-index: 1;
+
+    width: 35px;
+    height: 35px;
+
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 10px;
+
+    color: var(--text-muted);
+
+    border: 1px solid var(--border);
+
+    background:
+        rgba(255,255,255,0.025);
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+.option-text {
+
+    position: relative;
+
+    z-index: 1;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+.option.selected {
+
+    color: white;
+
+    border-color: var(--primary);
+
+    background:
+        rgba(124,92,255,0.1);
+
+    box-shadow:
+        0 10px 30px rgba(124,92,255,0.08);
+}
+
+
+.option.selected .option-letter {
+
+    color: white;
+
+    background: var(--primary);
+
+    border-color: var(--primary);
+}
+
+
+.option.correct {
+
+    color: white;
+
+    border-color: var(--success);
+
+    background:
+        rgba(49,230,154,0.08);
+}
+
+
+.option.correct .option-letter {
+
+    color: white;
+
+    background: var(--success);
+
+    border-color: var(--success);
+}
+
+
+.option.wrong {
+
+    color: white;
+
+    border-color: var(--danger);
+
+    background:
+        rgba(255,92,122,0.08);
+}
+
+
+.option.wrong .option-letter {
+
+    color: white;
+
+    background: var(--danger);
+
+    border-color: var(--danger);
+}
+
+
+/* =========================================================
+   QUIZ ACTIONS
+========================================================= */
+
+.quiz-actions {
+
+    max-width: 850px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-top: 35px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid var(--border);
+}
+
+
+.answered-indicator {
+
+    color: var(--text-muted);
+
+    font-size: 10px;
+}
+
+
+.answered-indicator span {
+
+    color: var(--primary-light);
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   QUESTION NAVIGATOR
+========================================================= */
+
+.question-navigator {
+
+    padding: 23px;
+
+    align-self: start;
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    background: var(--card);
+
+    backdrop-filter: blur(25px);
+}
+
+
+.navigator-title {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.navigator-title > div span {
+
+    display: block;
+
+    color: var(--text-muted);
+
+    font-size: 8px;
+
+    letter-spacing: 1.5px;
+}
+
+
+.navigator-title > div strong {
+
+    display: block;
+
+    margin-top: 4px;
+
+    font-family: "Space Grotesk";
+
+    font-size: 14px;
+}
+
+
+.nav-count {
+
+    color: var(--primary-light);
+
+    font-size: 10px;
+
+    font-weight: 800;
+}
+
+
+.question-palette {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 8px;
+
+    margin-top: 20px;
+}
+
+
+.palette-button {
+
+    aspect-ratio: 1;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 9px;
+
+    color: var(--text-muted);
+
+    background:
+        rgba(255,255,255,0.025);
+
+    border: 1px solid var(--border);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    transition: var(--transition);
+}
+
+
+.palette-button:hover {
+
+    border-color: var(--primary);
+
+    color: var(--text);
+}
+
+
+.palette-button.current {
+
+    color: white;
+
+    background: var(--primary);
+
+    border-color: var(--primary);
+
+    box-shadow:
+        0 7px 20px rgba(124,92,255,0.3);
+}
+
+
+.palette-button.answered {
+
+    color: var(--success);
+
+    border-color:
+        rgba(49,230,154,0.3);
+
+    background:
+        rgba(49,230,154,0.05);
+}
+
+
+.palette-button.current.answered {
+
+    color: white;
+
+    background: var(--primary);
+
+    border-color: var(--primary);
+}
+
+
+/* Legend */
+
+.legend {
+
+    margin-top: 22px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid var(--border);
+
+    display: grid;
+
+    gap: 9px;
+}
+
+
+.legend div {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: var(--text-muted);
+
+    font-size: 9px;
+}
+
+
+.legend-dot {
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #373c51;
+}
+
+
+.legend-dot.current {
+    background: var(--primary);
+}
+
+
+.legend-dot.answered {
+    background: var(--success);
+}
+
+
+.quiz-tip {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 20px;
+
+    padding: 13px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(124,92,255,0.06);
+}
+
+
+.quiz-tip > span {
+    font-size: 15px;
+}
+
+
+.quiz-tip strong {
+
+    display: block;
+
+    font-size: 9px;
+}
+
+
+.quiz-tip p {
+
+    margin-top: 5px;
+
+    color: var(--text-muted);
+
+    font-size: 8px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   RESULT
+========================================================= */
+
+.result-screen {
+
+    padding-top: 60px;
+}
+
+
+.result-top {
+
+    text-align: center;
+
+    max-width: 700px;
+
+    margin: 0 auto;
+}
+
+
+.success-icon {
+
+    width: 65px;
+    height: 65px;
+
+    margin: 0 auto 20px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    color: var(--success);
+
+    background:
+        rgba(49,230,154,0.08);
+
+    border: 1px solid
+        rgba(49,230,154,0.25);
+
+    font-size: 25px;
+
+    animation:
+        successPop 0.7s ease both;
+}
+
+
+@keyframes successPop {
+
+    0% {
+        transform: scale(0);
+    }
+
+    70% {
+        transform: scale(1.12);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+.result-top h1 {
+
+    margin-top: 12px;
+
+    font-family: "Space Grotesk";
+
+    font-size:
+        clamp(35px, 5vw, 55px);
+
+    letter-spacing: -2px;
+}
+
+
+.result-top p {
+
+    margin-top: 10px;
+
+    color: var(--text-muted);
+
+    font-size: 13px;
+}
+
+
+.result-dashboard {
+
+    display: grid;
+
+    grid-template-columns:
+        0.75fr
+        1.25fr;
+
+    gap: 18px;
+
+    margin-top: 50px;
+}
+
+
+.score-card,
+.analytics-card {
+
+    padding: 30px;
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    background: var(--card);
+
+    backdrop-filter: blur(25px);
+
+    box-shadow: var(--shadow);
+}
+
+
+.card-label {
+
+    color: var(--text-muted);
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+
+.score-card {
+
+    text-align: center;
+}
+
+
+.score-ring {
+
+    position: relative;
+
+    width: 240px;
+    height: 240px;
+
+    margin: 20px auto;
+}
+
+
+.score-ring svg {
+
+    width: 100%;
+    height: 100%;
+
+    transform: rotate(-90deg);
+}
+
+
+.score-ring circle {
+
+    fill: none;
+
+    stroke-width: 9;
+}
+
+
+.score-track {
+
+    stroke:
+        rgba(255,255,255,0.06);
+}
+
+
+.score-progress {
+
+    stroke:
+        url(#scoreGradient);
+
+    stroke: var(--primary);
+
+    stroke-linecap: round;
+
+    stroke-dasharray: 515;
+
+    stroke-dashoffset: 515;
+
+    transition:
+        stroke-dashoffset 1.4s
+        cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+.score-value {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+
+.score-value strong {
+
+    font-family: "Space Grotesk";
+
+    font-size: 60px;
+
+    line-height: 1;
+}
+
+
+.score-value span {
+
+    margin-top: 4px;
+
+    color: var(--text-muted);
+
+    font-size: 10px;
+}
+
+
+.performance-badge {
+
+    width: fit-content;
+
+    margin: 0 auto;
+
+    padding: 7px 12px;
+
+    border-radius: 50px;
+
+    color: var(--success);
+
+    background:
+        rgba(49,230,154,0.08);
+
+    border: 1px solid
+        rgba(49,230,154,0.15);
+
+    font-size: 9px;
+
+    font-weight: 800;
+}
+
+
+.score-card > p {
+
+    max-width: 320px;
+
+    margin: 14px auto 0;
+
+    color: var(--text-muted);
+
+    font-size: 10px;
+
+    line-height: 1.6;
+}
+
+
+/* Analytics */
+
+.analytics-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+
+.analytics-header > span:last-child {
+
+    color: var(--primary-light);
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+
+.analytics-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+
+.analytics-item {
+
+    padding: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,0.02);
+}
+
+
+.analytics-icon {
+
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 10px;
+
+    font-size: 13px;
+
+    font-weight: 800;
+}
+
+
+.analytics-icon.correct {
+
+    color: var(--success);
+
+    background:
+        rgba(49,230,154,0.08);
+}
+
+
+.analytics-icon.wrong {
+
+    color: var(--danger);
+
+    background:
+        rgba(255,92,122,0.08);
+}
+
+
+.analytics-icon.accuracy {
+
+    color: var(--secondary);
+
+    background:
+        rgba(0,212,255,0.08);
+}
+
+
+.analytics-icon.time {
+
+    color: var(--warning);
+
+    background:
+        rgba(255,200,87,0.08);
+}
+
+
+.analytics-item small {
+
+    display: block;
+
+    color: var(--text-muted);
+
+    font-size: 8px;
+}
+
+
+.analytics-item strong {
+
+    display: block;
+
+    margin-top: 3px;
+
+    font-family: "Space Grotesk";
+
+    font-size: 19px;
+}
+
+
+.performance-bar {
+
+    margin-top: 30px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid var(--border);
+}
+
+
+.bar-heading {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 9px;
+
+    color: var(--text-muted);
+
+    font-size: 9px;
+}
+
+
+.bar-heading strong {
+    color: var(--primary-light);
+}
+
+
+.bar-track {
+
+    height: 7px;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    background:
+        rgba(255,255,255,0.05);
+}
+
+
+.bar-fill {
+
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    transition: width 1.2s ease;
+}
+
+
+.best-score-row {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    margin-top: 20px;
+
+    gap: 10px;
+}
+
+
+.best-score-row div {
+
+    padding: 15px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+}
+
+
+.best-score-row span {
+
+    display: block;
+
+    color: var(--text-muted);
+
+    font-size: 8px;
+}
+
+
+.best-score-row strong {
+
+    display: block;
+
+    margin-top: 5px;
+
+    font-family: "Space Grotesk";
+
+    font-size: 18px;
+}
+
+
+.result-actions {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+
+/* =========================================================
+   REVIEW
+========================================================= */
+
+.review-list {
+
+    display: grid;
+
+    gap: 12px;
+
+    max-width: 1000px;
+
+    margin: 0 auto;
+}
+
+
+.review-item {
+
+    padding: 20px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 17px;
+
+    background: var(--card);
+
+    backdrop-filter: blur(20px);
+}
+
+
+.review-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+
+.review-number {
+
+    color: var(--primary-light);
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+
+.review-status {
+
+    padding: 5px 9px;
+
+    border-radius: 50px;
+
+    font-size: 8px;
+
+    font-weight: 800;
+}
+
+
+.review-status.correct {
+
+    color: var(--success);
+
+    background:
+        rgba(49,230,154,0.08);
+}
+
+
+.review-status.wrong {
+
+    color: var(--danger);
+
+    background:
+        rgba(255,92,122,0.08);
+}
+
+
+.review-question {
+
+    margin-top: 12px;
+
+    font-family: "Space Grotesk";
+
+    font-size: 16px;
+
+    line-height: 1.4;
+}
+
+
+.review-answer {
+
+    margin-top: 15px;
+
+    display: grid;
+
+    gap: 7px;
+}
+
+
+.review-answer div {
+
+    padding: 10px 12px;
+
+    border-radius: 9px;
+
+    font-size: 10px;
+}
+
+
+.review-answer .user-answer {
+
+    color: var(--text-soft);
+
+    background:
+        rgba(255,255,255,0.03);
+}
+
+
+.review-answer .correct-answer {
+
+    color: var(--success);
+
+    background:
+        rgba(49,230,154,0.06);
+}
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+.history-list {
+
+    max-width: 900px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    gap: 10px;
+}
+
+
+.history-item {
+
+    padding: 20px;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        auto
+        auto;
+
+    gap: 25px;
+
+    align-items: center;
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    background: var(--card);
+
+    transition: var(--transition);
+}
+
+
+.history-item:hover {
+
+    transform: translateX(5px);
+
+    border-color:
+        rgba(124,92,255,0.3);
+}
+
+
+.history-main strong {
+
+    display: block;
+
+    font-family: "Space Grotesk";
+
+    font-size: 14px;
+}
+
+
+.history-main span {
+
+    display: block;
+
+    margin-top: 5px;
+
+    color: var(--text-muted);
+
+    font-size: 9px;
+}
+
+
+.history-score {
+
+    font-family: "Space Grotesk";
+
+    font-size: 25px;
+
+    color: var(--primary-light);
+}
+
+
+.history-date {
+
+    color: var(--text-muted);
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast {
+
+    position: fixed;
+
+    right: 25px;
+    bottom: 25px;
+
+    min-width: 230px;
+
+    padding: 13px 16px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 13px;
+
+    background:
+        rgba(17,22,42,0.94);
+
+    backdrop-filter: blur(20px);
+
+    box-shadow: var(--shadow);
+
+    transform:
+        translateY(100px);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: 0.3s ease;
+
+    z-index: 100;
+}
+
+
+.toast.show {
+
+    transform:
+        translateY(0);
+
+    opacity: 1;
+}
+
+
+.toast span {
+
+    color: var(--success);
+
+    font-weight: 800;
+}
+
+
+.toast p {
+
+    font-size: 10px;
+
+    color: var(--text-soft);
+}
+
+
+/* =========================================================
+   CONFETTI
+========================================================= */
+
+.confetti-container {
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+    z-index: 200;
+}
+
+
+.confetti {
+
+    position: absolute;
+
+    top: -20px;
+
+    width: 7px;
+    height: 12px;
+
+    background: var(--primary);
+
+    animation:
+        confettiFall 2.5s linear forwards;
+}
+
+
+@keyframes confettiFall {
+
+    to {
+
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+
+        opacity: 0;
+    }
+}
+
+
+/* =========================================================
+   SHAKE
+========================================================= */
+
+.shake {
+
+    animation:
+        shake 0.4s ease;
+}
+
+
+@keyframes shake {
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+
+    75% {
+        transform: translateX(-4px);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .hero-layout {
+
+        grid-template-columns: 1fr;
+
+        gap: 30px;
+
+        padding: 50px 0;
+    }
+
+
+    .hero-content {
+
+        text-align: center;
+    }
+
+
+    .status-badge {
+
+        margin: auto;
+    }
+
+
+    .hero-content h1 {
+
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+    .hero-buttons {
+
+        justify-content: center;
+    }
+
+
+    .hero-stats {
+
+        justify-content: center;
+    }
+
+
+    .hero-preview {
+
+        min-height: 420px;
+    }
+
+
+    .category-grid {
+
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+
+    .setup-layout {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .setup-summary {
+
+        position: static;
+    }
+
+
+    .quiz-layout {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .question-navigator {
+
+        order: 2;
+    }
+
+
+    .question-palette {
+
+        grid-template-columns:
+            repeat(10, 1fr);
+    }
+
+}
+
+
+@media (max-width: 800px) {
+
+    .top-header,
+    .app {
+
+        width: min(
+            100% - 30px,
+            1400px
+        );
+    }
+
+
+    .feature-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .result-dashboard {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .result-actions {
+
+        flex-wrap: wrap;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .top-header {
+
+        padding: 18px 0;
+    }
+
+
+    .brand h2 {
+        font-size: 16px;
+    }
+
+
+    .hero-content h1 {
+
+        font-size: 52px;
+
+        letter-spacing: -3px;
+    }
+
+
+    .hero-buttons {
+
+        flex-direction: column;
+    }
+
+
+    .hero-buttons button {
+
+        width: 100%;
+    }
+
+
+    .hero-stats {
+
+        gap: 25px;
+    }
+
+
+    .hero-preview {
+
+        min-height: 350px;
+    }
+
+
+    .preview-body {
+
+        padding: 30px 25px;
+
+        min-height: 300px;
+    }
+
+
+    .preview-score {
+
+        font-size: 65px;
+    }
+
+
+    .floating-one {
+
+        right: -5px;
+    }
+
+
+    .floating-two {
+
+        left: -5px;
+    }
+
+
+    .category-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .section-heading {
+
+        padding-top: 40px;
+
+        align-items: start;
+
+        gap: 20px;
+
+        flex-direction: column;
+    }
+
+
+    .setup-main,
+    .setup-summary {
+
+        padding: 20px;
+    }
+
+
+    .quiz-header {
+
+        grid-template-columns:
+            1fr
+            auto;
+
+        gap: 15px;
+    }
+
+
+    .quiz-header-center {
+
+        display: none;
+    }
+
+
+    .quiz-layout {
+
+        padding-top: 30px;
+    }
+
+
+    .quiz-actions {
+
+        flex-wrap: wrap;
+
+        gap: 15px;
+    }
+
+
+    .answered-indicator {
+
+        order: 3;
+
+        width: 100%;
+
+        text-align: center;
+    }
+
+
+    .analytics-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .history-item {
+
+        grid-template-columns:
+            1fr
+            auto;
+    }
+
+
+    .history-date {
+
+        display: none;
+    }
+
+}
+
+
+@media (max-width: 430px) {
+
+    .hero-content h1 {
+
+        font-size: 45px;
+    }
+
+
+    .hero-stats {
+
+        gap: 18px;
+    }
+
+
+    .hero-stat strong {
+
+        font-size: 20px;
+    }
+
+
+    .category-grid {
+
+        grid-template-columns: 1fr 1fr;
+    }
+
+
+    .difficulty-selector,
+    .question-count-selector {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .question-palette {
+
+        grid-template-columns:
+            repeat(5, 1fr);
+    }
+
+
+    .result-actions {
+
+        flex-direction: column;
+    }
+
+
+    .result-actions button {
+
+        width: 100%;
+    }
+
+
+    .timer {
+
+        width: 65px;
+        height: 65px;
+    }
+
+}
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= BACKGROUND ================= -->
+
+    <div class="background">
+        <div class="glow glow-one"></div>
+        <div class="glow glow-two"></div>
+        <div class="grid-background"></div>
+    </div>
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="top-header">
+
+        <div class="brand">
+            <div class="brand-mark">
+                Q
+            </div>
+
+            <div>
+                <h2>QUIZORA</h2>
+                <span>Smart Assessment</span>
+            </div>
+        </div>
+
+        <div class="header-actions">
+
+            <button
+                class="icon-button"
+                id="themeToggle"
+                title="Toggle theme"
+                aria-label="Toggle theme"
+            >
+                ☼
+            </button>
+
+            <button
+                class="icon-button"
+                id="soundToggle"
+                title="Toggle sound"
+                aria-label="Toggle sound"
+            >
+                🔊
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= APP ================= -->
+
+    <main class="app">
+
+
+        <!-- ==================================================
+             WELCOME SCREEN
+        ================================================== -->
+
+        <section class="screen active" id="welcomeScreen">
+
+            <div class="hero-layout">
+
+                <div class="hero-content">
+
+                    <div class="status-badge">
+                        <span class="pulse-dot"></span>
+                        Interactive Assessment Platform
+                    </div>
+
+                    <h1>
+                        Test your
+                        <span>knowledge.</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        Challenge yourself with beautifully designed
+                        quizzes, real-time progress tracking and
+                        instant performance insights.
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <button
+                            class="primary-button"
+                            id="beginButton"
+                        >
+                            Start Assessment
+                            <span>→</span>
+                        </button>
+
+                        <button
+                            class="secondary-button"
+                            id="historyButton"
+                        >
+                            View History
+                        </button>
+
+                    </div>
+
+                    <div class="hero-stats">
+
+                        <div class="hero-stat">
+                            <strong>30+</strong>
+                            <span>Questions</span>
+                        </div>
+
+                        <div class="hero-stat">
+                            <strong>05</strong>
+                            <span>Categories</span>
+                        </div>
+
+                        <div class="hero-stat">
+                            <strong>03</strong>
+                            <span>Levels</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Floating dashboard preview -->
+
+                <div class="hero-preview">
+
+                    <div class="preview-window">
+
+                        <div class="preview-top">
+
+                            <div class="window-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+
+                            <small>QUIZORA / DASHBOARD</small>
+
+                        </div>
+
+                        <div class="preview-body">
+
+                            <div class="preview-label">
+                                CURRENT PERFORMANCE
+                            </div>
+
+                            <div class="preview-score">
+                                87<span>%</span>
+                            </div>
+
+                            <div class="preview-progress">
+                                <div></div>
+                            </div>
+
+                            <div class="preview-row">
+
+                                <div>
+                                    <small>Correct</small>
+                                    <strong>26</strong>
+                                </div>
+
+                                <div>
+                                    <small>Accuracy</small>
+                                    <strong>87%</strong>
+                                </div>
+
+                                <div>
+                                    <small>Rank</small>
+                                    <strong>#08</strong>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="floating-card floating-one">
+                        <span>⚡</span>
+                        <div>
+                            <strong>+12%</strong>
+                            <small>Performance</small>
+                        </div>
+                    </div>
+
+                    <div class="floating-card floating-two">
+                        <span>✓</span>
+                        <div>
+                            <strong>Excellent</strong>
+                            <small>Current Level</small>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Feature cards -->
+
+            <div class="feature-grid">
+
+                <div class="feature-card">
+                    <div class="feature-icon">⌁</div>
+                    <div>
+                        <h3>Real-Time Challenge</h3>
+                        <p>Race against the clock with a dynamic assessment timer.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">◈</div>
+                    <div>
+                        <h3>Smart Analytics</h3>
+                        <p>Understand your performance with instant result insights.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">◆</div>
+                    <div>
+                        <h3>Multiple Categories</h3>
+                        <p>Test yourself across frontend and web technologies.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             SETUP SCREEN
+        ================================================== -->
+
+        <section class="screen" id="setupScreen">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="eyebrow">01 / CONFIGURATION</span>
+
+                    <h2>
+                        Build your
+                        <span>challenge.</span>
+                    </h2>
+
+                    <p>
+                        Select your assessment preferences before starting.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="setup-layout">
+
+
+                <!-- Left -->
+
+                <div class="setup-main">
+
+                    <div class="form-section">
+
+                        <label>Your Name</label>
+
+                        <div class="input-wrapper">
+                            <span>◎</span>
+
+                            <input
+                                type="text"
+                                id="username"
+                                placeholder="Enter your name"
+                                maxlength="30"
+                            >
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-section">
+
+                        <div class="label-row">
+                            <label>Select Category</label>
+                            <span id="categoryText">Web Development</span>
+                        </div>
+
+
+                        <div class="category-grid">
+
+                            <button
+                                class="category-card selected"
+                                data-category="Web Development"
+                            >
+                                <div class="category-icon">&lt;/&gt;</div>
+                                <strong>Web Development</strong>
+                                <small>HTML · CSS · JS</small>
+                            </button>
+
+                            <button
+                                class="category-card"
+                                data-category="HTML"
+                            >
+                                <div class="category-icon">H</div>
+                                <strong>HTML</strong>
+                                <small>Structure & Semantics</small>
+                            </button>
+
+                            <button
+                                class="category-card"
+                                data-category="CSS"
+                            >
+                                <div class="category-icon">C</div>
+                                <strong>CSS</strong>
+                                <small>Styles & Layout</small>
+                            </button>
+
+                            <button
+                                class="category-card"
+                                data-category="JavaScript"
+                            >
+                                <div class="category-icon">JS</div>
+                                <strong>JavaScript</strong>
+                                <small>Logic & Interaction</small>
+                            </button>
+
+                            <button
+                                class="category-card"
+                                data-category="React"
+                            >
+                                <div class="category-icon">⚛</div>
+                                <strong>React</strong>
+                                <small>Components & UI</small>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-section">
+
+                        <div class="label-row">
+                            <label>Difficulty</label>
+                            <span id="difficultyText">Intermediate</span>
+                        </div>
+
+                        <div class="difficulty-selector">
+
+                            <button
+                                class="difficulty selected"
+                                data-difficulty="Easy"
+                            >
+                                <span class="difficulty-dot easy"></span>
+                                Easy
+                            </button>
+
+                            <button
+                                class="difficulty"
+                                data-difficulty="Intermediate"
+                            >
+                                <span class="difficulty-dot medium"></span>
+                                Intermediate
+                            </button>
+
+                            <button
+                                class="difficulty"
+                                data-difficulty="Hard"
+                            >
+                                <span class="difficulty-dot hard"></span>
+                                Hard
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-section">
+
+                        <div class="label-row">
+                            <label>Questions</label>
+                            <span id="questionCountText">10 Questions</span>
+                        </div>
+
+                        <div class="question-count-selector">
+
+                            <button
+                                class="count-option selected"
+                                data-count="10"
+                            >
+                                10
+                                <small>Quick</small>
+                            </button>
+
+                            <button
+                                class="count-option"
+                                data-count="15"
+                            >
+                                15
+                                <small>Standard</small>
+                            </button>
+
+                            <button
+                                class="count-option"
+                                data-count="20"
+                            >
+                                20
+                                <small>Deep Dive</small>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Right summary -->
+
+                <aside class="setup-summary">
+
+                    <div class="summary-header">
+                        <span>ASSESSMENT SUMMARY</span>
+                        <div class="summary-live">
+                            <span></span>
+                            READY
+                        </div>
+                    </div>
+
+
+                    <div class="summary-icon">
+                        ◈
+                    </div>
+
+                    <h3 id="summaryCategory">
+                        Web Development
+                    </h3>
+
+                    <p>
+                        A balanced assessment covering fundamental
+                        web development concepts.
+                    </p>
+
+
+                    <div class="summary-details">
+
+                        <div>
+                            <span>Difficulty</span>
+                            <strong id="summaryDifficulty">
+                                Intermediate
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Questions</span>
+                            <strong id="summaryQuestions">
+                                10
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Time Limit</span>
+                            <strong id="summaryTime">
+                                05:00
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="primary-button full"
+                        id="launchQuiz"
+                    >
+                        Launch Assessment
+                        <span>→</span>
+                    </button>
+
+
+                    <button
+                        class="text-button"
+                        id="backWelcome"
+                    >
+                        ← Back to home
+                    </button>
+
+                </aside>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             QUIZ SCREEN
+        ================================================== -->
+
+        <section class="screen quiz-screen" id="quizScreen">
+
+            <div class="quiz-header">
+
+                <div>
+
+                    <div class="quiz-brand">
+                        QUIZORA
+                    </div>
+
+                    <span
+                        class="quiz-category"
+                        id="quizCategory"
+                    >
+                        WEB DEVELOPMENT
+                    </span>
+
+                </div>
+
+
+                <div class="quiz-header-center">
+
+                    <span>QUESTION</span>
+
+                    <strong>
+                        <span id="currentQuestionNumber">01</span>
+                        /
+                        <span id="totalQuestionNumber">10</span>
+                    </strong>
+
+                </div>
+
+
+                <div class="timer">
+
+                    <svg viewBox="0 0 100 100">
+
+                        <circle
+                            class="timer-track"
+                            cx="50"
+                            cy="50"
+                            r="43"
+                        ></circle>
+
+                        <circle
+                            class="timer-progress"
+                            id="timerCircle"
+                            cx="50"
+                            cy="50"
+                            r="43"
+                        ></circle>
+
+                    </svg>
+
+                    <div class="timer-content">
+                        <span>TIME</span>
+                        <strong id="timerValue">05:00</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="quiz-progress">
+
+                <div class="progress-info">
+                    <span>Assessment Progress</span>
+                    <strong id="progressPercent">10%</strong>
+                </div>
+
+                <div class="progress-track">
+                    <div
+                        class="progress-fill"
+                        id="progressFill"
+                    ></div>
+                </div>
+
+            </div>
+
+
+            <div class="quiz-layout">
+
+
+                <!-- Question -->
+
+                <div class="question-area">
+
+                    <div class="question-meta">
+
+                        <span id="questionDifficulty">
+                            INTERMEDIATE
+                        </span>
+
+                        <span>
+                            •
+                        </span>
+
+                        <span id="questionTopic">
+                            HTML
+                        </span>
+
+                    </div>
+
+
+                    <h1 id="questionText">
+                        Which HTML element is used to create
+                        a hyperlink?
+                    </h1>
+
+
+                    <div
+                        class="options"
+                        id="optionsContainer"
+                    >
+                    </div>
+
+
+                    <div class="quiz-actions">
+
+                        <button
+                            class="secondary-button"
+                            id="previousButton"
+                        >
+                            ← Previous
+                        </button>
+
+                        <div class="answered-indicator">
+                            <span id="answeredCount">0</span>
+                            answered
+                        </div>
+
+                        <button
+                            class="primary-button"
+                            id="nextButton"
+                        >
+                            Next Question
+                            <span>→</span>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Question navigator -->
+
+                <aside class="question-navigator">
+
+                    <div class="navigator-title">
+
+                        <div>
+                            <span>QUESTIONS</span>
+                            <strong>Navigation</strong>
+                        </div>
+
+                        <span
+                            class="nav-count"
+                            id="navAnsweredCount"
+                        >
+                            0/10
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="question-palette"
+                        id="questionPalette"
+                    >
+                    </div>
+
+
+                    <div class="legend">
+
+                        <div>
+                            <span class="legend-dot current"></span>
+                            Current
+                        </div>
+
+                        <div>
+                            <span class="legend-dot answered"></span>
+                            Answered
+                        </div>
+
+                        <div>
+                            <span class="legend-dot unanswered"></span>
+                            Unanswered
+                        </div>
+
+                    </div>
+
+
+                    <div class="quiz-tip">
+
+                        <span>💡</span>
+
+                        <div>
+                            <strong>Quick Tip</strong>
+
+                            <p>
+                                You can move between questions
+                                anytime using the navigation panel.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             RESULT SCREEN
+        ================================================== -->
+
+        <section class="screen result-screen" id="resultScreen">
+
+            <div class="result-top">
+
+                <div class="success-icon">
+                    ✓
+                </div>
+
+                <span class="eyebrow">
+                    ASSESSMENT COMPLETE
+                </span>
+
+                <h1>
+                    Well done,
+                    <span id="resultName">Candidate</span>.
+                </h1>
+
+                <p>
+                    Your assessment has been completed.
+                    Here's your performance overview.
+                </p>
+
+            </div>
+
+
+            <div class="result-dashboard">
+
+
+                <!-- Score -->
+
+                <div class="score-card">
+
+                    <span class="card-label">
+                        FINAL SCORE
+                    </span>
+
+                    <div class="score-ring">
+
+                        <svg viewBox="0 0 200 200">
+
+                            <circle
+                                class="score-track"
+                                cx="100"
+                                cy="100"
+                                r="82"
+                            ></circle>
+
+                            <circle
+                                class="score-progress"
+                                id="scoreCircle"
+                                cx="100"
+                                cy="100"
+                                r="82"
+                            ></circle>
+
+                        </svg>
+
+                        <div class="score-value">
+
+                            <strong id="finalScore">
+                                0
+                            </strong>
+
+                            <span>
+                                / 100
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="performance-badge" id="performanceBadge">
+                        Excellent Performance
+                    </div>
+
+                    <p id="performanceMessage">
+                        Outstanding work! You demonstrated
+                        strong knowledge across the assessment.
+                    </p>
+
+                </div>
+
+
+                <!-- Statistics -->
+
+                <div class="analytics-card">
+
+                    <div class="analytics-header">
+                        <span class="card-label">
+                            PERFORMANCE ANALYTICS
+                        </span>
+
+                        <span id="resultCategory">
+                            WEB DEVELOPMENT
+                        </span>
+                    </div>
+
+
+                    <div class="analytics-grid">
+
+                        <div class="analytics-item">
+                            <span class="analytics-icon correct">
+                                ✓
+                            </span>
+
+                            <div>
+                                <small>Correct</small>
+                                <strong id="correctAnswers">
+                                    0
+                                </strong>
+                            </div>
+                        </div>
+
+
+                        <div class="analytics-item">
+                            <span class="analytics-icon wrong">
+                                ×
+                            </span>
+
+                            <div>
+                                <small>Incorrect</small>
+                                <strong id="wrongAnswers">
+                                    0
+                                </strong>
+                            </div>
+                        </div>
+
+
+                        <div class="analytics-item">
+                            <span class="analytics-icon accuracy">
+                                %
+                            </span>
+
+                            <div>
+                                <small>Accuracy</small>
+                                <strong id="accuracy">
+                                    0%
+                                </strong>
+                            </div>
+                        </div>
+
+
+                        <div class="analytics-item">
+                            <span class="analytics-icon time">
+                                ◷
+                            </span>
+
+                            <div>
+                                <small>Time Used</small>
+                                <strong id="timeUsed">
+                                    00:00
+                                </strong>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="performance-bar">
+
+                        <div class="bar-heading">
+                            <span>Overall Performance</span>
+                            <strong id="resultPercentage">
+                                0%
+                            </strong>
+                        </div>
+
+                        <div class="bar-track">
+                            <div
+                                id="resultBar"
+                                class="bar-fill"
+                            ></div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="best-score-row">
+
+                        <div>
+                            <span>Personal Best</span>
+                            <strong id="bestScore">
+                                0
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Questions</span>
+                            <strong id="resultQuestions">
+                                10
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Result actions -->
+
+            <div class="result-actions">
+
+                <button
+                    class="primary-button"
+                    id="reviewButton"
+                >
+                    Review Answers
+                    <span>→</span>
+                </button>
+
+                <button
+                    class="secondary-button"
+                    id="retryButton"
+                >
+                    Retake Assessment
+                </button>
+
+                <button
+                    class="text-button"
+                    id="homeButton"
+                >
+                    Back to Dashboard
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             REVIEW SCREEN
+        ================================================== -->
+
+        <section class="screen" id="reviewScreen">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="eyebrow">
+                        04 / REVIEW
+                    </span>
+
+                    <h2>
+                        Answer
+                        <span>review.</span>
+                    </h2>
+
+                    <p>
+                        Review your responses and see the correct answers.
+                    </p>
+
+                </div>
+
+                <button
+                    class="secondary-button"
+                    id="reviewBackButton"
+                >
+                    ← Results
+                </button>
+
+            </div>
+
+
+            <div
+                class="review-list"
+                id="reviewList"
+            >
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             HISTORY SCREEN
+        ================================================== -->
+
+        <section class="screen" id="historyScreen">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="eyebrow">
+                        PERFORMANCE
+                    </span>
+
+                    <h2>
+                        Quiz
+                        <span>history.</span>
+                    </h2>
+
+                    <p>
+                        Your recent assessment performance.
+                    </p>
+
+                </div>
+
+                <button
+                    class="secondary-button"
+                    id="historyBackButton"
+                >
+                    ← Dashboard
+                </button>
+
+            </div>
+
+
+            <div
+                class="history-list"
+                id="historyList"
+            >
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- ================= TOAST ================= -->
+
+    <div
+        class="toast"
+        id="toast"
+    >
+        <span>✓</span>
+        <p id="toastMessage">Answer selected</p>
+    </div>
+
+
+    <!-- ================= CONFETTI ================= -->
+
+    <div
+        class="confetti-container"
+        id="confettiContainer"
+    ></div>
+
+
+    <script>
+        /* =========================================================
+   QUIZORA
+   Interactive Assessment Platform
+   Pure JavaScript
+========================================================= */
+
+
+/* =========================================================
+   QUESTION DATABASE
+========================================================= */
+
+const questionBank = [
+
+    /* ================= WEB DEVELOPMENT ================= */
+
+    {
+        category: "Web Development",
+        difficulty: "Easy",
+        question: "Which HTML element is used to create a hyperlink?",
+        options: ["<link>", "<a>", "<href>", "<url>"],
+        answer: 1,
+        topic: "HTML"
+    },
+
+    {
+        category: "Web Development",
+        difficulty: "Easy",
+        question: "Which technology is primarily responsible for styling a web page?",
+        options: ["HTML", "CSS", "SQL", "Python"],
+        answer: 1,
+        topic: "CSS"
+    },
+
+    {
+        category: "Web Development",
+        difficulty: "Easy",
+        question: "Which language is commonly used to add interactivity to websites?",
+        options: ["HTML", "CSS", "JavaScript", "SQL"],
+        answer: 2,
+        topic: "JavaScript"
+    },
+
+    {
+        category: "Web Development",
+        difficulty: "Intermediate",
+        question: "Which CSS layout system is designed for two-dimensional layouts?",
+        options: ["Flexbox", "Grid", "Float", "Position"],
+        answer: 1,
+        topic: "CSS"
+    },
+
+    {
+        category: "Web Development",
+        difficulty: "Intermediate",
+        question: "Which JavaScript method converts JSON text into a JavaScript object?",
+        options: [
+            "JSON.parse()",
+            "JSON.object()",
+            "JSON.convert()",
+            "JSON.decode()"
+        ],
+        answer: 0,
+        topic: "JavaScript"
+    },
+
+    {
+        category: "Web Development",
+        difficulty: "Intermediate",
+        question: "What does responsive web design primarily aim to achieve?",
+        options: [
+            "Faster databases",
+            "Adaptation to different screen sizes",
+            "More server memory",
+            "Automatic SEO"
+        ],
+        answer: 1,
+        topic: "UI/UX"
+    },
+
+    {
+        category: "Web Development",
+        difficulty: "Hard",
+        question: "Which HTTP status code indicates that a resource was not found?",
+        options: ["200", "301", "404", "500"],
+        answer: 2,
+        topic: "HTTP"
+    },
+
+    {
+        category: "Web Development",
+        difficulty: "Hard",
+        question: "Which browser storage mechanism persists data even after the browser is closed?",
+        options: [
+            "localStorage",
+            "sessionStorage",
+            "Temporary DOM",
+            "Memory cache"
+        ],
+        answer: 0,
+        topic: "Browser API"
+    },
+
+
+    /* ================= HTML ================= */
+
+    {
+        category: "HTML",
+        difficulty: "Easy",
+        question: "Which element is used to display an image?",
+        options: ["<image>", "<img>", "<picture>", "<src>"],
+        answer: 1,
+        topic: "HTML"
+    },
+
+    {
+        category: "HTML",
+        difficulty: "Easy",
+        question: "Which element creates an ordered list?",
+        options: ["<ul>", "<list>", "<ol>", "<li>"],
+        answer: 2,
+        topic: "HTML"
+    },
+
+    {
+        category: "HTML",
+        difficulty: "Intermediate",
+        question: "Which HTML attribute provides alternative text for an image?",
+        options: ["title", "alt", "src", "text"],
+        answer: 1,
+        topic: "Accessibility"
+    },
+
+    {
+        category: "HTML",
+        difficulty: "Intermediate",
+        question: "Which element represents the main content of a document?",
+        options: [
+            "<section>",
+            "<main>",
+            "<content>",
+            "<article>"
+        ],
+        answer: 1,
+        topic: "Semantic HTML"
+    },
+
+    {
+        category: "HTML",
+        difficulty: "Hard",
+        question: "Which HTML attribute is used to uniquely identify an element?",
+        options: ["class", "id", "name", "key"],
+        answer: 1,
+        topic: "HTML"
+    },
+
+
+    /* ================= CSS ================= */
+
+    {
+        category: "CSS",
+        difficulty: "Easy",
+        question: "Which property changes the text color?",
+        options: [
+            "font-color",
+            "text-color",
+            "color",
+            "foreground"
+        ],
+        answer: 2,
+        topic: "CSS"
+    },
+
+    {
+        category: "CSS",
+        difficulty: "Easy",
+        question: "Which CSS property controls the space inside an element?",
+        options: [
+            "margin",
+            "padding",
+            "spacing",
+            "border"
+        ],
+        answer: 1,
+        topic: "CSS Box Model"
+    },
+
+    {
+        category: "CSS",
+        difficulty: "Intermediate",
+        question: "Which property enables a Flexbox layout?",
+        options: [
+            "display: flex",
+            "position: flex",
+            "layout: flex",
+            "flex: display"
+        ],
+        answer: 0,
+        topic: "Flexbox"
+    },
+
+    {
+        category: "CSS",
+        difficulty: "Intermediate",
+        question: "Which pseudo-class applies styles when the user points at an element?",
+        options: [
+            "::point",
+            ":hover",
+            ":mouse",
+            ":active-hover"
+        ],
+        answer: 1,
+        topic: "Pseudo Classes"
+    },
+
+    {
+        category: "CSS",
+        difficulty: "Hard",
+        question: "Which CSS unit is relative to the root element's font size?",
+        options: ["em", "rem", "px", "%"],
+        answer: 1,
+        topic: "CSS Units"
+    },
+
+
+    /* ================= JAVASCRIPT ================= */
+
+    {
+        category: "JavaScript",
+        difficulty: "Easy",
+        question: "Which keyword declares a block-scoped variable that can be reassigned?",
+        options: ["var", "let", "const", "define"],
+        answer: 1,
+        topic: "JavaScript"
+    },
+
+    {
+        category: "JavaScript",
+        difficulty: "Easy",
+        question: "Which command prints information to the browser console?",
+        options: [
+            "print()",
+            "console.log()",
+            "log.console()",
+            "browser.log()"
+        ],
+        answer: 1,
+        topic: "JavaScript"
+    },
+
+    {
+        category: "JavaScript",
+        difficulty: "Intermediate",
+        question: "Which method adds an element to the end of an array?",
+        options: [
+            "push()",
+            "add()",
+            "append()",
+            "insert()"
+        ],
+        answer: 0,
+        topic: "Arrays"
+    },
+
+    {
+        category: "JavaScript",
+        difficulty: "Intermediate",
+        question: "What does DOM stand for?",
+        options: [
+            "Document Object Model",
+            "Data Object Method",
+            "Digital Object Manager",
+            "Document Oriented Module"
+        ],
+        answer: 0,
+        topic: "DOM"
+    },
+
+    {
+        category: "JavaScript",
+        difficulty: "Hard",
+        question: "Which JavaScript feature allows handling asynchronous operations?",
+        options: [
+            "Promises",
+            "Selectors",
+            "CSS Grid",
+            "HTML Forms"
+        ],
+        answer: 0,
+        topic: "Async JavaScript"
+    },
+
+
+    /* ================= REACT ================= */
+
+    {
+        category: "React",
+        difficulty: "Easy",
+        question: "React is primarily used for building what?",
+        options: [
+            "Databases",
+            "User interfaces",
+            "Operating systems",
+            "Network protocols"
+        ],
+        answer: 1,
+        topic: "React"
+    },
+
+    {
+        category: "React",
+        difficulty: "Easy",
+        question: "What is JSX?",
+        options: [
+            "A database",
+            "A syntax extension for JavaScript",
+            "A CSS framework",
+            "A server"
+        ],
+        answer: 1,
+        topic: "JSX"
+    },
+
+    {
+        category: "React",
+        difficulty: "Intermediate",
+        question: "Which hook is commonly used to manage state in a functional component?",
+        options: [
+            "useState",
+            "useStyle",
+            "useComponent",
+            "useData"
+        ],
+        answer: 0,
+        topic: "React Hooks"
+    },
+
+    {
+        category: "React",
+        difficulty: "Intermediate",
+        question: "What is a React component?",
+        options: [
+            "A reusable UI building block",
+            "A database table",
+            "A CSS property",
+            "A browser extension"
+        ],
+        answer: 0,
+        topic: "Components"
+    },
+
+    {
+        category: "React",
+        difficulty: "Hard",
+        question: "Which hook is commonly used for side effects in React?",
+        options: [
+            "useEffect",
+            "useSide",
+            "useAction",
+            "useAsync"
+        ],
+        answer: 0,
+        topic: "React Hooks"
+    }
+
+];
+
+
+/* =========================================================
+   APPLICATION STATE
+========================================================= */
+
+let selectedCategory = "Web Development";
+
+let selectedDifficulty = "Intermediate";
+
+let selectedCount = 10;
+
+let username = "Candidate";
+
+let questions = [];
+
+let currentQuestion = 0;
+
+let answers = [];
+
+let timerSeconds = 300;
+
+let totalQuizTime = 300;
+
+let timerInterval = null;
+
+let quizStartTime = null;
+
+let soundEnabled = true;
+
+
+/* =========================================================
+   DOM ELEMENTS
+========================================================= */
+
+const screens = {
+
+    welcome:
+        document.getElementById("welcomeScreen"),
+
+    setup:
+        document.getElementById("setupScreen"),
+
+    quiz:
+        document.getElementById("quizScreen"),
+
+    result:
+        document.getElementById("resultScreen"),
+
+    review:
+        document.getElementById("reviewScreen"),
+
+    history:
+        document.getElementById("historyScreen")
+
+};
+
+
+const usernameInput =
+    document.getElementById("username");
+
+const categoryText =
+    document.getElementById("categoryText");
+
+const difficultyText =
+    document.getElementById("difficultyText");
+
+const questionCountText =
+    document.getElementById("questionCountText");
+
+
+/* =========================================================
+   SCREEN NAVIGATION
+========================================================= */
+
+function showScreen(screen) {
+
+    Object.values(screens).forEach(item => {
+
+        item.classList.remove("active");
+
+    });
+
+    screen.classList.add("active");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =========================================================
+   WELCOME
+========================================================= */
+
+document
+    .getElementById("beginButton")
+    .addEventListener("click", () => {
+
+        showScreen(screens.setup);
+
+    });
+
+
+document
+    .getElementById("historyButton")
+    .addEventListener("click", () => {
+
+        renderHistory();
+
+        showScreen(screens.history);
+
+    });
+
+
+/* =========================================================
+   CATEGORY SELECTION
+========================================================= */
+
+document
+    .querySelectorAll(".category-card")
+    .forEach(card => {
+
+        card.addEventListener("click", () => {
+
+            document
+                .querySelectorAll(".category-card")
+                .forEach(item =>
+                    item.classList.remove("selected")
+                );
+
+            card.classList.add("selected");
+
+            selectedCategory =
+                card.dataset.category;
+
+            categoryText.textContent =
+                selectedCategory;
+
+            updateSummary();
+
+        });
+
+    });
+
+
+/* =========================================================
+   DIFFICULTY
+========================================================= */
+
+document
+    .querySelectorAll(".difficulty")
+    .forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            document
+                .querySelectorAll(".difficulty")
+                .forEach(item =>
+                    item.classList.remove("selected")
+                );
+
+            button.classList.add("selected");
+
+            selectedDifficulty =
+                button.dataset.difficulty;
+
+            difficultyText.textContent =
+                selectedDifficulty;
+
+            updateSummary();
+
+        });
+
+    });
+
+
+/* =========================================================
+   QUESTION COUNT
+========================================================= */
+
+document
+    .querySelectorAll(".count-option")
+    .forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            document
+                .querySelectorAll(".count-option")
+                .forEach(item =>
+                    item.classList.remove("selected")
+                );
+
+            button.classList.add("selected");
+
+            selectedCount =
+                Number(button.dataset.count);
+
+            questionCountText.textContent =
+                `${selectedCount} Questions`;
+
+            updateSummary();
+
+        });
+
+    });
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+function updateSummary() {
+
+    document.getElementById(
+        "summaryCategory"
+    ).textContent =
+        selectedCategory;
+
+    document.getElementById(
+        "summaryDifficulty"
+    ).textContent =
+        selectedDifficulty;
+
+    document.getElementById(
+        "summaryQuestions"
+    ).textContent =
+        selectedCount;
+
+    document.getElementById(
+        "summaryTime"
+    ).textContent =
+        formatTime(getQuizTime());
+
+}
+
+
+/* =========================================================
+   QUIZ TIME
+========================================================= */
+
+function getQuizTime() {
+
+    let secondsPerQuestion = 30;
+
+    if (selectedDifficulty === "Easy") {
+
+        secondsPerQuestion = 25;
+
+    } else if (
+        selectedDifficulty === "Hard"
+    ) {
+
+        secondsPerQuestion = 40;
+
+    }
+
+    return selectedCount * secondsPerQuestion;
+
+}
+
+
+/* =========================================================
+   BACK TO WELCOME
+========================================================= */
+
+document
+    .getElementById("backWelcome")
+    .addEventListener("click", () => {
+
+        showScreen(screens.welcome);
+
+    });
+
+
+/* =========================================================
+   LAUNCH QUIZ
+========================================================= */
+
+document
+    .getElementById("launchQuiz")
+    .addEventListener("click", startQuiz);
+
+
+function startQuiz() {
+
+    username =
+        usernameInput.value.trim()
+        || "Candidate";
+
+
+    /*
+        Filter category and difficulty.
+        If there aren't enough exact matches,
+        use category questions first and then
+        other matching questions.
+    */
+
+    let filtered =
+        questionBank.filter(
+            q =>
+                q.category === selectedCategory &&
+                q.difficulty === selectedDifficulty
+        );
+
+
+    if (filtered.length < selectedCount) {
+
+        filtered =
+            questionBank.filter(
+                q =>
+                    q.category === selectedCategory
+            );
+
+    }
+
+
+    if (filtered.length < selectedCount) {
+
+        filtered =
+            [...questionBank];
+    }
+
+
+    questions =
+        shuffleArray(filtered)
+            .slice(0, selectedCount);
+
+
+    /*
+        If the requested count is greater than
+        the available question pool, use all
+        available questions.
+    */
+
+    selectedCount =
+        questions.length;
+
+
+    answers =
+        new Array(selectedCount)
+            .fill(null);
+
+
+    currentQuestion = 0;
+
+
+    totalQuizTime =
+        getQuizTime();
+
+
+    timerSeconds =
+        totalQuizTime;
+
+
+    quizStartTime =
+        Date.now();
+
+
+    updateQuizHeader();
+
+    createQuestionPalette();
+
+    displayQuestion();
+
+    startTimer();
+
+    showScreen(screens.quiz);
+
+}
+
+
+/* =========================================================
+   SHUFFLE
+========================================================= */
+
+function shuffleArray(array) {
+
+    const copy = [...array];
+
+    for (
+        let i = copy.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(
+                Math.random() * (i + 1)
+            );
+
+        [
+            copy[i],
+            copy[j]
+        ] =
+        [
+            copy[j],
+            copy[i]
+        ];
+
+    }
+
+    return copy;
+}
+
+
+/* =========================================================
+   QUIZ HEADER
+========================================================= */
+
+function updateQuizHeader() {
+
+    document.getElementById(
+        "quizCategory"
+    ).textContent =
+        selectedCategory.toUpperCase();
+
+    document.getElementById(
+        "totalQuestionNumber"
+    ).textContent =
+        String(selectedCount)
+            .padStart(2, "0");
+
+}
+
+
+/* =========================================================
+   DISPLAY QUESTION
+========================================================= */
+
+function displayQuestion() {
+
+    const question =
+        questions[currentQuestion];
+
+
+    document.getElementById(
+        "currentQuestionNumber"
+    ).textContent =
+        String(currentQuestion + 1)
+            .padStart(2, "0");
+
+
+    document.getElementById(
+        "questionText"
+    ).textContent =
+        question.question;
+
+
+    document.getElementById(
+        "questionDifficulty"
+    ).textContent =
+        question.difficulty.toUpperCase();
+
+
+    document.getElementById(
+        "questionTopic"
+    ).textContent =
+        question.topic;
+
+
+    const container =
+        document.getElementById(
+            "optionsContainer"
+        );
+
+
+    container.innerHTML = "";
+
+
+    question.options.forEach(
+        (option, index) => {
+
+            const button =
+                document.createElement("button");
+
+            button.className =
+                "option";
+
+            button.dataset.index =
+                index;
+
+
+            button.innerHTML = `
+
+                <span class="option-letter">
+                    ${String.fromCharCode(65 + index)}
+                </span>
+
+                <span class="option-text">
+                    ${escapeHTML(option)}
+                </span>
+
+            `;
+
+
+            button.addEventListener(
+                "click",
+                () =>
+                    selectAnswer(index)
+            );
+
+
+            container.appendChild(button);
+
+        }
+    );
+
+
+    /*
+        Restore previous answer
+    */
+
+    if (
+        answers[currentQuestion] !== null
+    ) {
+
+        const selected =
+            container.querySelector(
+                `[data-index="${answers[currentQuestion]}"]`
+            );
+
+        if (selected) {
+
+            selected.classList.add(
+                "selected"
+            );
+
+        }
+
+    }
+
+
+    updateProgress();
+
+    updatePalette();
+
+    updateButtons();
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================================
+   SELECT ANSWER
+========================================================= */
+
+function selectAnswer(index) {
+
+    answers[currentQuestion] =
+        index;
+
+
+    const options =
+        document.querySelectorAll(
+            ".option"
+        );
+
+
+    options.forEach(option => {
+
+        option.classList.remove(
+            "selected"
+        );
+
+    });
+
+
+    const selected =
+        document.querySelector(
+            `.option[data-index="${index}"]`
+        );
+
+
+    if (selected) {
+
+        selected.classList.add(
+            "selected"
+        );
+
+    }
+
+
+    playSound("select");
+
+    updateProgress();
+
+    updatePalette();
+
+    updateButtons();
+
+    showToast("Answer saved");
+
+}
+
+
+/* =========================================================
+   NEXT BUTTON
+========================================================= */
+
+document
+    .getElementById("nextButton")
+    .addEventListener(
+        "click",
+        nextQuestion
+    );
+
+
+function nextQuestion() {
+
+    if (
+        answers[currentQuestion] === null
+    ) {
+
+        showToast(
+            "Please select an answer first"
+        );
+
+        document
+            .getElementById("optionsContainer")
+            .classList.add("shake");
+
+
+        setTimeout(() => {
+
+            document
+                .getElementById("optionsContainer")
+                .classList.remove("shake");
+
+        }, 450);
+
+
+        return;
+    }
+
+
+    if (
+        currentQuestion <
+        questions.length - 1
+    ) {
+
+        currentQuestion++;
+
+        displayQuestion();
+
+        return;
+    }
+
+
+    finishQuiz();
+
+}
+
+
+/* =========================================================
+   PREVIOUS BUTTON
+========================================================= */
+
+document
+    .getElementById("previousButton")
+    .addEventListener(
+        "click",
+        previousQuestion
+    );
+
+
+function previousQuestion() {
+
+    if (currentQuestion > 0) {
+
+        currentQuestion--;
+
+        displayQuestion();
+
+    }
+
+}
+
+
+/* =========================================================
+   BUTTON STATE
+========================================================= */
+
+function updateButtons() {
+
+    const previous =
+        document.getElementById(
+            "previousButton"
+        );
+
+    const next =
+        document.getElementById(
+            "nextButton"
+        );
+
+
+    previous.style.opacity =
+        currentQuestion === 0
+            ? "0.45"
+            : "1";
+
+
+    if (
+        currentQuestion ===
+        questions.length - 1
+    ) {
+
+        next.innerHTML =
+            `Finish Assessment <span>✓</span>`;
+
+    } else {
+
+        next.innerHTML =
+            `Next Question <span>→</span>`;
+
+    }
+
+
+    const answered =
+        answers.filter(
+            answer => answer !== null
+        ).length;
+
+
+    document.getElementById(
+        "answeredCount"
+    ).textContent =
+        answered;
+
+
+    document.getElementById(
+        "navAnsweredCount"
+    ).textContent =
+        `${answered}/${questions.length}`;
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function updateProgress() {
+
+    const percentage =
+        Math.round(
+            (
+                (currentQuestion + 1)
+                /
+                questions.length
+            ) * 100
+        );
+
+
+    document.getElementById(
+        "progressPercent"
+    ).textContent =
+        `${percentage}%`;
+
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        `${percentage}%`;
+
+
+    const answered =
+        answers.filter(
+            answer => answer !== null
+        ).length;
+
+
+    document.getElementById(
+        "answeredCount"
+    ).textContent =
+        answered;
+
+
+    document.getElementById(
+        "navAnsweredCount"
+    ).textContent =
+        `${answered}/${questions.length}`;
+
+}
+
+
+/* =========================================================
+   QUESTION PALETTE
+========================================================= */
+
+function createQuestionPalette() {
+
+    const palette =
+        document.getElementById(
+            "questionPalette"
+        );
+
+
+    palette.innerHTML = "";
+
+
+    questions.forEach(
+        (_, index) => {
+
+            const button =
+                document.createElement("button");
+
+
+            button.className =
+                "palette-button";
+
+
+            button.textContent =
+                String(index + 1)
+                    .padStart(2, "0");
+
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    currentQuestion =
+                        index;
+
+                    displayQuestion();
+
+                }
+            );
+
+
+            palette.appendChild(button);
+
+        }
+    );
+
+
+    updatePalette();
+
+}
+
+
+function updatePalette() {
+
+    const buttons =
+        document.querySelectorAll(
+            ".palette-button"
+        );
+
+
+    buttons.forEach(
+        (button, index) => {
+
+            button.classList.remove(
+                "current",
+                "answered"
+            );
+
+
+            if (
+                index === currentQuestion
+            ) {
+
+                button.classList.add(
+                    "current"
+                );
+
+            }
+
+
+            if (
+                answers[index] !== null
+            ) {
+
+                button.classList.add(
+                    "answered"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   TIMER
+========================================================= */
+
+function startTimer() {
+
+    clearInterval(timerInterval);
+
+
+    updateTimerDisplay();
+
+
+    timerInterval =
+        setInterval(() => {
+
+            timerSeconds--;
+
+
+            updateTimerDisplay();
+
+
+            if (
+                timerSeconds <= 0
+            ) {
+
+                clearInterval(
+                    timerInterval
+                );
+
+                showToast(
+                    "Time is up!"
+                );
+
+                finishQuiz();
+
+            }
+
+        }, 1000);
+
+}
+
+
+function updateTimerDisplay() {
+
+    document.getElementById(
+        "timerValue"
+    ).textContent =
+        formatTime(timerSeconds);
+
+
+    const circle =
+        document.getElementById(
+            "timerCircle"
+        );
+
+
+    const circumference = 270;
+
+
+    const progress =
+        timerSeconds /
+        totalQuizTime;
+
+
+    circle.style.strokeDashoffset =
+        circumference *
+        (1 - progress);
+
+
+    if (
+        progress <= 0.2
+    ) {
+
+        circle.style.stroke =
+            "var(--danger)";
+
+    } else if (
+        progress <= 0.4
+    ) {
+
+        circle.style.stroke =
+            "var(--warning)";
+
+    } else {
+
+        circle.style.stroke =
+            "var(--primary)";
+
+    }
+
+}
+
+
+/* =========================================================
+   FORMAT TIME
+========================================================= */
+
+function formatTime(seconds) {
+
+    const mins =
+        Math.floor(seconds / 60);
+
+    const secs =
+        seconds % 60;
+
+
+    return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+
+}
+
+
+/* =========================================================
+   FINISH QUIZ
+========================================================= */
+
+function finishQuiz() {
+
+    clearInterval(timerInterval);
+
+
+    /*
+        Automatically submit unanswered
+        questions as incorrect.
+    */
+
+    const correct =
+        questions.reduce(
+            (total, question, index) => {
+
+                return total +
+                    (
+                        answers[index] ===
+                        question.answer
+                            ? 1
+                            : 0
+                    );
+
+            },
+            0
+        );
+
+
+    const wrong =
+        questions.length -
+        correct;
+
+
+    const score =
+        Math.round(
+            (correct / questions.length)
+            * 100
+        );
+
+
+    const timeUsed =
+        totalQuizTime -
+        timerSeconds;
+
+
+    saveQuizHistory(
+        score,
+        correct,
+        wrong,
+        timeUsed
+    );
+
+
+    showResults(
+        score,
+        correct,
+        wrong,
+        timeUsed
+    );
+
+
+    playSound("complete");
+
+
+    if (score >= 70) {
+
+        createConfetti();
+
+    }
+
+
+    showScreen(screens.result);
+
+}
+
+
+/* =========================================================
+   SHOW RESULTS
+========================================================= */
+
+function showResults(
+    score,
+    correct,
+    wrong,
+    timeUsed
+) {
+
+    document.getElementById(
+        "resultName"
+    ).textContent =
+        username;
+
+
+    document.getElementById(
+        "finalScore"
+    ).textContent =
+        score;
+
+
+    document.getElementById(
+        "correctAnswers"
+    ).textContent =
+        correct;
+
+
+    document.getElementById(
+        "wrongAnswers"
+    ).textContent =
+        wrong;
+
+
+    document.getElementById(
+        "accuracy"
+    ).textContent =
+        `${score}%`;
+
+
+    document.getElementById(
+        "timeUsed"
+    ).textContent =
+        formatTime(timeUsed);
+
+
+    document.getElementById(
+        "resultPercentage"
+    ).textContent =
+        `${score}%`;
+
+
+    document.getElementById(
+        "resultBar"
+    ).style.width =
+        `${score}%`;
+
+
+    document.getElementById(
+        "resultCategory"
+    ).textContent =
+        selectedCategory.toUpperCase();
+
+
+    document.getElementById(
+        "resultQuestions"
+    ).textContent =
+        questions.length;
+
+
+    updatePerformanceMessage(score);
+
+    updateBestScore();
+
+
+    /*
+        Animate score ring
+    */
+
+    const circle =
+        document.getElementById(
+            "scoreCircle"
+        );
+
+
+    const circumference =
+        515;
+
+
+    circle.style.strokeDashoffset =
+        circumference;
+
+
+    requestAnimationFrame(() => {
+
+        circle.style.strokeDashoffset =
+            circumference -
+            (
+                circumference *
+                score /
+                100
+            );
+
+    });
+
+}
+
+
+/* =========================================================
+   PERFORMANCE MESSAGE
+========================================================= */
+
+function updatePerformanceMessage(score) {
+
+    const badge =
+        document.getElementById(
+            "performanceBadge"
+        );
+
+    const message =
+        document.getElementById(
+            "performanceMessage"
+        );
+
+
+    if (score >= 90) {
+
+        badge.textContent =
+            "Exceptional Performance";
+
+        message.textContent =
+            "Outstanding work! You demonstrated excellent knowledge and consistency.";
+
+    } else if (score >= 75) {
+
+        badge.textContent =
+            "Excellent Performance";
+
+        message.textContent =
+            "Great job! You showed strong understanding across the assessment.";
+
+    } else if (score >= 60) {
+
+        badge.textContent =
+            "Good Performance";
+
+        message.textContent =
+            "Nice work! You have a solid foundation with room to grow further.";
+
+    } else if (score >= 40) {
+
+        badge.textContent =
+            "Keep Practicing";
+
+        message.textContent =
+            "You're making progress. Review the missed concepts and try again.";
+
+    } else {
+
+        badge.textContent =
+            "Learning Mode";
+
+        message.textContent =
+            "Every attempt is progress. Review your answers and challenge yourself again.";
+
+    }
+
+}
+
+
+/* =========================================================
+   BEST SCORE
+========================================================= */
+
+function updateBestScore() {
+
+    const best =
+        Number(
+            localStorage.getItem(
+                "quizoraBestScore"
+            )
+        ) || 0;
+
+
+    const current =
+        Number(
+            document.getElementById(
+                "finalScore"
+            ).textContent
+        );
+
+
+    if (current > best) {
+
+        localStorage.setItem(
+            "quizoraBestScore",
+            current
+        );
+
+    }
+
+
+    document.getElementById(
+        "bestScore"
+    ).textContent =
+        Math.max(
+            best,
+            current
+        );
+
+}
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+function saveQuizHistory(
+    score,
+    correct,
+    wrong,
+    timeUsed
+) {
+
+    const history =
+        JSON.parse(
+            localStorage.getItem(
+                "quizoraHistory"
+            )
+        ) || [];
+
+
+    history.unshift({
+
+        name: username,
+
+        category:
+            selectedCategory,
+
+        difficulty:
+            selectedDifficulty,
+
+        score,
+
+        correct,
+
+        wrong,
+
+        time:
+            timeUsed,
+
+        questions:
+            questions.length,
+
+        date:
+            new Date().toLocaleString()
+
+    });
+
+
+    /*
+        Keep only the last 10 attempts.
+    */
+
+    localStorage.setItem(
+        "quizoraHistory",
+        JSON.stringify(
+            history.slice(0, 10)
+        )
+    );
+
+}
+
+
+function renderHistory() {
+
+    const container =
+        document.getElementById(
+            "historyList"
+        );
+
+
+    const history =
+        JSON.parse(
+            localStorage.getItem(
+                "quizoraHistory"
+            )
+        ) || [];
+
+
+    if (!history.length) {
+
+        container.innerHTML = `
+
+            <div class="history-item">
+
+                <div class="history-main">
+
+                    <strong>
+                        No assessments yet
+                    </strong>
+
+                    <span>
+                        Complete your first quiz to see
+                        your performance history here.
+                    </span>
+
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        history.map(item => `
+
+            <div class="history-item">
+
+                <div class="history-main">
+
+                    <strong>
+                        ${escapeHTML(item.category)}
+                    </strong>
+
+                    <span>
+                        ${escapeHTML(item.name)}
+                        ·
+                        ${escapeHTML(item.difficulty)}
+                        ·
+                        ${item.questions} Questions
+                    </span>
+
+                </div>
+
+                <div class="history-score">
+                    ${item.score}%
+                </div>
+
+                <div class="history-date">
+                    ${escapeHTML(item.date)}
+                </div>
+
+            </div>
+
+        `).join("");
+
+}
+
+
+/* =========================================================
+   REVIEW ANSWERS
+========================================================= */
+
+document
+    .getElementById("reviewButton")
+    .addEventListener(
+        "click",
+        () => {
+
+            renderReview();
+
+            showScreen(
+                screens.review
+            );
+
+        }
+    );
+
+
+function renderReview() {
+
+    const container =
+        document.getElementById(
+            "reviewList"
+        );
+
+
+    container.innerHTML =
+        questions.map(
+            (question, index) => {
+
+                const userAnswer =
+                    answers[index];
+
+
+                const isCorrect =
+                    userAnswer ===
+                    question.answer;
+
+
+                const userText =
+                    userAnswer !== null
+                        ? question.options[userAnswer]
+                        : "Not answered";
+
+
+                const correctText =
+                    question.options[
+                        question.answer
+                    ];
+
+
+                return `
+
+                    <div class="review-item">
+
+                        <div class="review-header">
+
+                            <span class="review-number">
+                                QUESTION ${String(index + 1).padStart(2, "0")}
+                            </span>
+
+                            <span class="review-status ${
+                                isCorrect
+                                    ? "correct"
+                                    : "wrong"
+                            }">
+
+                                ${
+                                    isCorrect
+                                        ? "CORRECT"
+                                        : "INCORRECT"
+                                }
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="review-question">
+
+                            ${escapeHTML(question.question)}
+
+                        </div>
+
+
+                        <div class="review-answer">
+
+                            <div class="user-answer">
+
+                                <strong>Your answer:</strong>
+
+                                ${escapeHTML(userText)}
+
+                            </div>
+
+
+                            <div class="correct-answer">
+
+                                <strong>Correct answer:</strong>
+
+                                ${escapeHTML(correctText)}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+/* =========================================================
+   REVIEW BACK
+========================================================= */
+
+document
+    .getElementById("reviewBackButton")
+    .addEventListener(
+        "click",
+        () => {
+
+            showScreen(
+                screens.result
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   RETRY
+========================================================= */
+
+document
+    .getElementById("retryButton")
+    .addEventListener(
+        "click",
+        () => {
+
+            showScreen(
+                screens.setup
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   HOME
+========================================================= */
+
+document
+    .getElementById("homeButton")
+    .addEventListener(
+        "click",
+        () => {
+
+            showScreen(
+                screens.welcome
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   HISTORY BACK
+========================================================= */
+
+document
+    .getElementById("historyBackButton")
+    .addEventListener(
+        "click",
+        () => {
+
+            showScreen(
+                screens.welcome
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   THEME
+========================================================= */
+
+document
+    .getElementById("themeToggle")
+    .addEventListener(
+        "click",
+        () => {
+
+            document.body.classList.toggle(
+                "light"
+            );
+
+
+            const light =
+                document.body.classList.contains(
+                    "light"
+                );
+
+
+            localStorage.setItem(
+                "quizoraTheme",
+                light
+                    ? "light"
+                    : "dark"
+            );
+
+
+            document.getElementById(
+                "themeToggle"
+            ).textContent =
+                light
+                    ? "☾"
+                    : "☼";
+
+        }
+    );
+
+
+/* Restore theme */
+
+const savedTheme =
+    localStorage.getItem(
+        "quizoraTheme"
+    );
+
+
+if (savedTheme === "light") {
+
+    document.body.classList.add(
+        "light"
+    );
+
+    document.getElementById(
+        "themeToggle"
+    ).textContent = "☾";
+
+}
+
+
+/* =========================================================
+   SOUND
+========================================================= */
+
+document
+    .getElementById("soundToggle")
+    .addEventListener(
+        "click",
+        () => {
+
+            soundEnabled =
+                !soundEnabled;
+
+
+            document.getElementById(
+                "soundToggle"
+            ).textContent =
+                soundEnabled
+                    ? "🔊"
+                    : "🔇";
+
+
+            showToast(
+                soundEnabled
+                    ? "Sound enabled"
+                    : "Sound disabled"
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   SOUND ENGINE
+========================================================= */
+
+function playSound(type) {
+
+    if (!soundEnabled) {
+        return;
+    }
+
+
+    /*
+        Small Web Audio API sounds.
+        No external audio files required.
+    */
+
+    try {
+
+        const AudioContext =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+
+        const context =
+            new AudioContext();
+
+
+        const oscillator =
+            context.createOscillator();
+
+
+        const gain =
+            context.createGain();
+
+
+        oscillator.connect(gain);
+
+        gain.connect(
+            context.destination
+        );
+
+
+        if (type === "select") {
+
+            oscillator.frequency.value =
+                550;
+
+        } else if (
+            type === "complete"
+        ) {
+
+            oscillator.frequency.value =
+                750;
+
+        } else {
+
+            oscillator.frequency.value =
+                400;
+
+        }
+
+
+        gain.gain.setValueAtTime(
+            0.0001,
+            context.currentTime
+        );
+
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.04,
+            context.currentTime + 0.01
+        );
+
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.0001,
+            context.currentTime + 0.15
+        );
+
+
+        oscillator.start();
+
+        oscillator.stop(
+            context.currentTime + 0.15
+        );
+
+    } catch (error) {
+
+        console.log(
+            "Audio unavailable"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimeout;
+
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    document.getElementById(
+        "toastMessage"
+    ).textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimeout
+    );
+
+
+    toastTimeout =
+        setTimeout(() => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        }, 1800);
+
+}
+
+
+/* =========================================================
+   CONFETTI
+========================================================= */
+
+function createConfetti() {
+
+    const container =
+        document.getElementById(
+            "confettiContainer"
+        );
+
+
+    container.innerHTML = "";
+
+
+    const pieces = 80;
+
+
+    for (
+        let i = 0;
+        i < pieces;
+        i++
+    ) {
+
+        const piece =
+            document.createElement(
+                "div"
+            );
+
+
+        piece.className =
+            "confetti";
+
+
+        piece.style.left =
+            `${Math.random() * 100}%`;
+
+
+        piece.style.animationDelay =
+            `${Math.random() * 0.8}s`;
+
+
+        piece.style.transform =
+            `rotate(${Math.random() * 360}deg)`;
+
+
+        /*
+            Use CSS custom properties
+            for variation.
+        */
+
+        const colors = [
+            "#7c5cff",
+            "#00d4ff",
+            "#31e69a",
+            "#ffc857",
+            "#ff5c7a"
+        ];
+
+
+        piece.style.background =
+            colors[
+                Math.floor(
+                    Math.random() *
+                    colors.length
+                )
+            ];
+
+
+        container.appendChild(
+            piece
+        );
+
+    }
+
+
+    setTimeout(() => {
+
+        container.innerHTML = "";
+
+    }, 3500);
+
+}
+
+
+/* =========================================================
+   KEYBOARD SHORTCUTS
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        /*
+            Only active during quiz.
+        */
+
+        if (
+            !screens.quiz.classList.contains(
+                "active"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        /*
+            A / B / C / D
+        */
+
+        const key =
+            event.key.toUpperCase();
+
+
+        if (
+            ["A", "B", "C", "D"].includes(key)
+        ) {
+
+            const index =
+                key.charCodeAt(0) -
+                65;
+
+
+            if (
+                index <
+                questions[
+                    currentQuestion
+                ].options.length
+            ) {
+
+                selectAnswer(index);
+
+            }
+
+        }
+
+
+        /*
+            Arrow right
+        */
+
+        if (
+            event.key === "ArrowRight"
+        ) {
+
+            nextQuestion();
+
+        }
+
+
+        /*
+            Arrow left
+        */
+
+        if (
+            event.key === "ArrowLeft"
+        ) {
+
+            previousQuestion();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   PREVENT ACCIDENTAL REFRESH
+========================================================= */
+
+window.addEventListener(
+    "beforeunload",
+    event => {
+
+        if (
+            screens.quiz.classList.contains(
+                "active"
+            )
+        ) {
+
+            event.preventDefault();
+
+            event.returnValue = "";
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+updateSummary();
+
+console.log(
+    "QUIZORA initialized successfully 🚀"
+);
+
+    </script>
+
+
+    
+
+</body>
+</html>
